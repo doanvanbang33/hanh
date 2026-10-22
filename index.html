@@ -1,135 +1,356 @@
-
-
 <!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Quà chúc mừng</title>
+  <title>Quà chúc mừng</title>
   <style>
-    body{
-      margin:0;
-      height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(135deg,#ffd4e8,#ffffff,#ffebf5);
-      font-family:Inter,system-ui;
-      overflow:hidden;
-      touch-action:manipulation;
+    :root {
+      --pink-1: #ffd6e8;
+      --pink-2: #ffb3d4;
+      --pink-3: #ff7eb6;
+      --pink-4: #d81b60;
+      --rose-1: #fff1f7;
+      --rose-2: #fce4ec;
+      --text: #5a0032;
+      --muted: #7f3d5b;
+      --white: #ffffff;
+      --shadow: rgba(176, 52, 97, 0.18);
     }
 
-    .container{
-      text-align:center;
-      padding:20px;
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.92), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255,182,193,0.45), transparent 30%),
+        linear-gradient(135deg, #ffeaf5 0%, #fff7fb 30%, #ffdfe9 100%);
+      overflow: hidden;
+      touch-action: manipulation;
     }
 
-    .avatar{
-      width:220px;
-      height:220px;
-      border-radius:20px;
-      overflow:hidden;
-      margin:0 auto;
-      border:4px solid rgba(255,255,255,0.7);
-      box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    }
-    .avatar img{width:100%;height:100%;object-fit:cover}
-
-    h1{margin:22px 0 10px;color:#c2185b;font-size:26px;font-weight:700}
-    p{color:#5a0032;font-size:18px;margin:0 0 14px}
-
-    /* hearts */
-    .heart{
-      position:fixed;
-      pointer-events:none;
-      font-size:26px;
-      animation:floatUp 3s ease-out forwards;
-    }
-
-    @keyframes floatUp{
-      0%{opacity:0;transform:translateY   (30px) scale(0.6)}
-      20%{opacity:1}
-      100%{opacity:0;transform:translateY(-220px) scale(1.2)}
-    }
-       .a{
-      display:flex;
-      top: 10px;
-      left: 10px;
-      width: 20px;
-      height: 100px;
-      z-index: 1000;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(255,176,198,0.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 70%, rgba(255,255,255,0.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 80%, rgba(255,181,213,0.7) 0 2px, transparent 3px);
+      background-repeat: repeat;
+      opacity: 0.8;
       pointer-events: none;
-
-    }
-    .tap-hint{
-      position:fixed;
-      bottom:32px;
-      left:50%;
-      transform:translateX(-50%);
-      background:rgba(255,255,255,0.6);
-      padding:10px 20px;
-      font-size:16px;
-      border-radius:14px;
-      color:#ad1457;
-      box-shadow:0 4px 15px rgba(0,0,0,0.15);
-      animation:pulse 1.8s infinite;
     }
 
-    @keyframes pulse{
-      0%,100%{transform:translateX(-50%) scale(1)}
-      50%{transform:tránslateX(-50%) scale(1.07)}
+    .scene {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      isolation: isolate;
+    }
+
+    .floating-gif {
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.38);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 28px rgba(201, 88, 121, 0.12);
+      z-index: 10;
+      animation: floatY 3s ease-in-out infinite;
+    }
+
+    .floating-gif img {
+      width: 98%;
+      height: 98%;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .card {
+      position: relative;
+      width: min(560px, 100%);
+      padding: 26px 22px 20px;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 45px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.45);
+      text-align: center;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: rgba(255, 192, 215, 0.18);
+      z-index: -1;
+    }
+
+    .card::before {
+      top: -60px;
+      left: -32px;
+    }
+
+    .card::after {
+      right: -52px;
+      bottom: -70px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #b21d5d;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(210, 91, 137, 0.18);
+      box-shadow: 0 10px 25px rgba(210, 91, 137, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .avatar {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 18px;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 5px solid rgba(255,255,255,0.8);
+      box-shadow: 0 18px 35px rgba(193, 53, 95, 0.18);
+      transform: rotate(-1.5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: rotate(0) scale(1.02);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: #c2185b;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-shadow: 0 4px 14px rgba(194, 24, 91, 0.1);
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      font-size: clamp(1.02rem, 2vw, 1.35rem);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .message {
+      max-width: 420px;
+      margin: 0 auto 18px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.5);
+      color: #7c2347;
+      font-size: 1rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+      line-height: 1.7;
+    }
+
+    .heart-line {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      color: #ff5b9f;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      animation: pulseHeart 1.8s ease-in-out infinite;
+    }
+
+    .tap-hint {
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(210, 91, 137, 0.18);
+      box-shadow: 0 10px 24px rgba(148, 77, 107, 0.12);
+      color: #b51d5d;
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      z-index: 20;
+      animation: pulse 1.8s infinite;
+      user-select: none;
+    }
+
+    .heart {
+      position: fixed;
+      pointer-events: none;
+      font-size: clamp(1.1rem, 2vw, 2rem);
+      animation: floatUp 3s ease-out forwards;
+      filter: drop-shadow(0 8px 12px rgba(196, 59, 108, 0.14));
+      z-index: 15;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.6) rotate(0deg);
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-220px) scale(1.2) rotate(18deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.05);
+      }
+    }
+
+    @keyframes pulseHeart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 22px 16px 18px;
+        border-radius: 24px;
+      }
+
+      .avatar {
+        width: 180px;
+        height: 180px;
+      }
+
+      .floating-gif {
+        width: 60px;
+        height: 60px;
+        left: 14px;
+        top: 14px;
+      }
+
+      .message {
+        font-size: 0.96rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class ="a"><img src ="./giphy.webp"></div>
+  <div class="floating-gif">
+    <img src="./giphy.webp" alt="love gif" />
+  </div>
 
-<div class="container" id="tapArea">
-  <div class="avatar"><img src="./n.jpg" alt=" Meo"></div>
-<h1>Gửi Meo đáng yêu 💖</h1>
-  <p>Món Quà dành cho Meo</p>
-</div>
+  <main class="scene" id="tapArea">
+    <section class="card">
+      <div class="badge">💌 For my love</div>
+      <div class="avatar">
+        <img src="./n.jpg" alt="Meo" />
+      </div>
+      <h1>Gửi Meo đáng yêu 💖</h1>
+      <p class="subtitle">Món quà nhỏ dành cho Meo</p>
+      <div class="heart-line">❤ ❤ ❤</div>
+      <p class="message">
+        Meo ơi, em muốn gửi tới Meo một lời chúc thật dịu dàng: luôn vui vẻ, luôn yêu đời,
+        và luôn được yêu thương trọn vẹn mỗi ngày. Mong mỗi khoảnh khắc của Meo đều ngập tràn
+        nụ cười và hạnh phúc.
+      </p>
+    </section>
+  </main>
 
-<div class="tap-hint" id="hint">Chạm vào màn hình đi Meo🎶</div>
+  <div class="tap-hint" id="hint">Chạm vào màn hình đi Meo 🎶</div>
 
-<audio id="audio" loop preload="auto">
-  <source src="./Gấp Đôi Yêu Thương.mp3" type="audio/mpeg">
-</audio>
+  <audio id="audio" loop preload="auto">
+    <source src="./Gấp Đôi Yêu Thương.mp3" type="audio/mpeg" />
+  </audio>
 
-<script>
-  const audio = document.getElementById('audio');
-  const hint = document.getElementById('hint');
+  <script>
+    const audio = document.getElementById('audio');
+    const hint = document.getElementById('hint');
+    const tapArea = document.getElementById('tapArea');
 
-  let musicStarted = false;
+    let musicStarted = false;
 
-  function playMusic(){
-    if(!musicStarted){
-      audio.play();
-      hint.style.display = 'none';
-      musicStarted = true;
-      startHeartRain();
+    function playMusic() {
+      if (!musicStarted) {
+        const startAudio = audio.play();
+        if (startAudio && typeof startAudio.then === 'function') {
+          startAudio.catch(() => {});
+        }
+        hint.style.display = 'none';
+        musicStarted = true;
+        startHeartRain();
+      }
     }
-  }
 
-  document.body.addEventListener('click', playMusic);
-  document.body.addEventListener('touchstart', playMusic);
+    function startHeartRain() {
+      if (window.__heartRainStarted) return;
+      window.__heartRainStarted = true;
 
-  function startHeartRain(){
-    setInterval(()=>{
-      createHeart(Math.random()*window.innerWidth, window.innerHeight - 40);
-    }, 350);
-  }
+      setInterval(() => {
+        createHeart(Math.random() * window.innerWidth, window.innerHeight - 40);
+      }, 350);
+    }
 
-  function createHeart(x,y){
-    const h = document.createElement('div');
-    h.className = 'heart';
-    h.innerHTML = '💗';
-    h.style.left = x + 'px';
-    h.style.top = y + 'px';
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(), 3200);
-  }
-</script>
+    function createHeart(x, y) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      const symbols = ['💖', '💗', '💞', '💘', '💓'];
+      heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+      heart.style.left = x + 'px';
+      heart.style.top = y + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3200);
+    }
 
+    document.body.addEventListener('click', playMusic);
+    document.body.addEventListener('touchstart', playMusic, { passive: true });
+    tapArea.addEventListener('click', playMusic);
+  </script>
 </body>
 </html>
